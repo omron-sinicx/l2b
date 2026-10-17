@@ -11,11 +11,35 @@ export default class Overview extends React.Component {
   render() {
     return (
       <div className="uk-section">
-        <img
-          src={`${this.props.teaser}`}
-          className="uk-align-center uk-responsive-width"
-          alt=""
-        />
+        {/* An .html teaser (e.g. an interactive demo in public/) is embedded as an iframe. */}
+        {this.props.teaser.endsWith('.html') ? (
+          <div
+            className="uk-margin-medium-bottom"
+            style={{
+              position: 'relative',
+              width: '100%',
+              aspectRatio: '16 / 10',
+            }}
+          >
+            <iframe
+              src={this.props.teaser}
+              title="teaser"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                border: 0,
+              }}
+            />
+          </div>
+        ) : (
+          <img
+            src={`${this.props.teaser}`}
+            className="uk-align-center uk-responsive-width"
+            alt=""
+          />
+        )}
         {this.props.description && (
           <p className="uk-text-secondary uk-text-center uk-margin-bottom">
             <span

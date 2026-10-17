@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>L2B crowd simulation</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        background: #fff;
+      }
+      .three-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+      .credit {
+        position: absolute;
+        right: 8px;
+        bottom: 4px;
+        font: 10px/1.4 sans-serif;
+        color: #999;
+      }
+      .credit a {
+        color: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- three.js crowd simulation ported from denkiwakame.github.io/l2b (gh-pages).
+         The bundle sizes its canvas from .three-container and loads samples/*.glb relative to this page.
+         l2b.bundle.js is patched to loop: the trajectory index wraps one frame after the robot first reaches its final (goal) position. -->
+    <div class="three-container">
+      <div id="js-three-canvas"></div>
+    </div>
+    <div class="credit">
+      Pedestrian model by <a href="https://mixamo.com" target="_blank">mixamo.com</a>.
+      Robot model by <a href="https://www.patreon.com/quaternius" target="_blank">Tomás Laulhé</a>,
+      modifications by <a href="https://donmccurdy.com/" target="_blank">Don McCurdy</a>. CC0 1.0.
+    </div>
+    <script src="l2b.bundle.js"></script>
+  </body>
+</html>

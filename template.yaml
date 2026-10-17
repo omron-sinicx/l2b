@@ -1,61 +1,39 @@
 theme: default # default || dark
 organization: OMRON SINIC X
 twitter: '@omron_sinicx'
-title: 'Multi-Agent Behavior Retrieval: Retrieval-Augmented Policy Training for Cooperative Manipulation by Mobile Robots'
-conference: IROS2024
+title: 'L2B: Learning to Balance the Safety-Efficiency Trade-off in Interactive Crowd-aware Robot Navigation'
+conference: IROS2020
 resources:
-  paper: https://arxiv.org/abs/1909.13111
+  paper: https://arxiv.org/abs/2003.09207
   poster:
-  code: https://github.com/omron-sinicx/multipolar
-  video: https://www.youtube.com/embed/W8nBFKDxsb0
-  blog: https://medium.com/sinicx/multipolar-multi-source-policy-aggregation-for-transfer-reinforcement-learning-between-diverse-bc42a152b0f5
-  demo: https://colab.research.google.com/
-  huggingface: https://huggingface.co/
-description: explore a new challenge in transfer RL, where only a set of source policies collected under unknown diverse dynamics is available for learning a target task efficiently.
-image: https://omron-sinicx.github.io/${your-repository-name}/teaser.png
-url: https://omron-sinicx.github.io/${your-repository-name}
-speakerdeck: b7a0614c24014dcbbb121fbb9ed234cd
+  simulator: https://github.com/denkiwakame/Python-ERVO
+  video: https://www.youtube.com/embed/OB8KE9VXv3s
+  blog: https://medium.com/sinicx/l2b-learning-to-balance-the-safety-efficiency-trade-offs-in-interactive-crowd-aware-robot-ecc15fddb121
+  demo:
+  huggingface:
+description: A robot that learns when to ask a crowd to make room and when to detour, raising navigation success in dense crowds.
+image: https://omron-sinicx.github.io/l2b/ogp.png
+url: https://omron-sinicx.github.io/l2b
+speakerdeck: # TODO(human): Speaker Deck id, if there are slides
 authors:
-  - name: So Kuroki
-    affiliation: [1, 2]
-    url: http://barekatain.me/
-    position: intern
   - name: Mai Nishimura
     affiliation: [1]
     position: Senior Researcher
     url: https://denkiwakame.github.io
-  - name: Tadashi Kozuno
+  - name: Ryo Yonetani
     affiliation: [1]
-    position: Senior Researcher
-    url: https://sites.google.com/view/masashihamaya/home
-    #  - name: Mai Nishimura
-    #    affiliation: [1]
-    #    url: https://denkiwakame.github.io
-    #  - name: Asako Kanezaki
-    #    affiliation: [2]
-    #    url: https://kanezaki.github.io/
-contact_ids: ['github', 'omron', 2] #=> github issues, contact@sinicx.com, 2nd author
+    url: https://yonetaniryo.github.io
+contact_ids: ['omron', 1] #=> contact@sinicx.com, 1st author
 affiliations:
   - OMRON SINIC X Corporation
-  - Technical University of Munich
-meta:
-  - '* work done as an intern at OMRON SINIC X.'
+meta: []
 bibtex: >
-  # arXiv version
-
-  @article{barekatain2019multipolar,
-    title={MULTIPOLAR: Multi-Source Policy Aggregation for Transfer Reinforcement Learning between Diverse Environmental Dynamics},
-    author={Barekatain, Mohammadamin and Yonetani, Ryo and Hamaya, Masashi},
-    journal={arXiv preprint arXiv:1909.13111},
-    year={2019}
-  }
-
-  # IJCAI version
-
-  @inproceedings{barekatain2020multipolar,
-    title={MULTIPOLAR: Multi-Source Policy Aggregation for Transfer Reinforcement Learning between Diverse Environmental Dynamics},
-    author={Barekatain, Mohammadamin and Yonetani, Ryo and Hamaya, Masashi},
-    booktitle={International Joint Conference on Artificial Intelligence (IJCAI)},
+  @inproceedings{nishimura2020l2b,
+    title={L2B: Learning to Balance the Safety-Efficiency Trade-off in Interactive Crowd-aware Robot Navigation},
+    author={Nishimura, Mai and Yonetani, Ryo},
+    booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+    address={Las Vegas, NV, USA},
+    organization={IEEE},
     year={2020}
   }
 header:
@@ -63,202 +41,88 @@ header:
     sinic_curve.png
     #  bg_image: https://github.com/omron-sinicx/swarm-body/raw/main/images/teaser.jpg
 
-teaser: teaser.png
+teaser: sim/index.html
 overview: |
-  This is a versatile template designed to satisfy your research project page needs, all while harnessing the power of **UIKit** and **React**. Built on the foundations of simplicity and flexibility, this template allows you to focus on expressing your ideas without the hassle of directly handling CSS—thanks to customizable SASS variables.
-  With markdown as your canvas and $\KaTeX$ for precise equations, crafting clear and engaging project page becomes effortless. Whether you're unraveling complex theories or presenting your findings, this template aims to support your scholarly endeavors with grace and ease.
-  *Need to edit HTML directly?* Fear not! In addition to markdown, you can also directly write HTML with ease. Feel empowered to craft your content exactly as you envision it, whether through markdown's simplicity or the precision of HTML.
+  This work presents a deep reinforcement learning framework for interactive navigation in a crowded place. Our proposed approach, Learning to Balance (L2B) framework enables mobile robot agents to steer safely towards their destinations by avoiding collisions with a crowd, while actively clearing a path by asking nearby pedestrians to make room, if necessary, to keep their travel efficient. We observe that the safety and efficiency requirements in crowd-aware navigation have a trade-off in the presence of social dilemmas between the agent and the crowd. On the one hand, intervening in pedestrian paths too much to achieve instant efficiency will result in collapsing a natural crowd flow and may eventually put everyone, including the self, at risk of collisions. On the other hand, keeping in silence to avoid every single collision will lead to the agent's inefficient travel. With this observation, our L2B framework augments the reward function used in learning an interactive navigation policy to penalize frequent active path clearing and passive collision avoidance, which substantially improves the balance of the safety-efficiency trade-off. We evaluate our L2B framework in a challenging crowd simulation and demonstrate its superiority, in terms of both navigation success and collision rate, over a state-of-the-art navigation approach.
 
 body:
-  - title: Media examples
+  - title: Collision Avoidance or Path Clearing?
     text: |
-      You can access media files in `public` directly like: `<img src="method.png" />` 
+      When a robot moves through a dense crowd, it has two options: wait for people to pass and avoid them (**passive collision avoidance**), or ask nearby people to make room (**active path clearing**, e.g., by beeping). Neither is good on its own.
 
-      <img src="method.png" alt="" />
-      <span class="uk-text-meta">Example figcaption text</span>
+      <img src="problem.png" class="uk-align-center uk-responsive-width" alt="Freezing robot problem and interactive navigation" />
+      <span class="uk-text-meta">Fig. 1: Left: freezing robot problem, where a robot struggles to find a bypass and as a result takes unnecessary maneuvers, ending in a timeout or a collision. Right: our agent interacts with the crowd by actively clearing a path or passively finding a bypass, balancing the safety-efficiency trade-off.</span>
 
-      See also [UIKit Video Components Documentation](https://getuikit.com/docs/video) and [Grid system](https://getuikit.com/docs/grid)
-      <div uk-slider>
-        <div class="uk-slider-items uk-child-width-1-1 uk-child-width-1-2@m" uk-grid>
-          <div>
-            <video
-              src="demo.mp4"
-              loop
-              muted
-              uk-video="autoplay:inview"
-              />
-          </div>
-          <div>
-            <video
-              src="demo.mp4"
-              loop
-              muted
-              uk-video="autoplay:inview"
-              />
-          </div>
-          <div>
-            <video
-              src="demo.mp4"
-              loop
-              muted
-              uk-video="autoplay:inview"
-              />
-          </div>
-        </div>
-        <div class="uk-flex uk-flex-center uk-margin-small">
-          <a class="uk-icon-button" href uk-slidenav-previous uk-slider-item="previous"></a>
-          <a class="uk-icon-button uk-margin-small-left" href uk-slidenav-next uk-slider-item="next"></a>
-        </div>
-      </div>
-  - title: Markdown examples
+      - **Only avoiding** keeps everyone safe, but in a crowded scene the robot cannot find a gap. It freezes, takes long detours, and eventually times out or collides (Fig. 1, left).
+      - **Always intervening** gets the robot through quickly at first, but pushing people around collapses the natural crowd flow. Once the crowd has no room left to give way, everyone, including the robot, is at higher risk of collision.
+
+      We view this as a **social dilemma** between the robot and the crowd, treated as a single virtual *crowd agent*. Mutual cooperation $R$ is when both sides make reasonable room for each other. Passive avoidance alone leaves the robot with the sucker outcome $S$, and aggressive path clearing gives the robot a short-term temptation payoff $T$ that turns into mutual defection $P$ once the crowd can no longer make room. L2B learns **when** to clear a path and **when** to detour, so the robot stays in $R$ (Fig. 1, right).
+  - title: Method
     text: |
-      Here's our demo text showcasing the power of markdown and KaTeX integration!
-      Markdown allows you to easily format text using simple syntax.
-      - **bold**
-      - *italic*
-      - `inline code`.
+      L2B augments the navigation reward with a term $R_s$ coming from the crowd. Its first part, weighted by $\beta$, penalizes active path clearing when pedestrians are within the beep range $r^{(b)}$, discouraging the move from $R$ to $T$. Its second part, weighted by $\eta$, penalizes getting closer than a discomfort distance, discouraging the move from $R$ to $S$. Setting $\eta > \beta$ makes getting too close worse than clearing a path, so the policy learns to stay in $R$ by using both actions sparingly. The value network is trained with V-learning on top of SARL.
 
-      You can also create headings of various levels:
-      # Heading Level 1
-      ## Heading Level 2
-      ### Heading Level 3
-      #### Heading Level 4
-      Markdown allows you to create tables like the following:
-      #### Motion Planning (MP) Dataset
-      markdown version
-      |Method|Opt|Exp|Hmean|
-      |--|--|--|--|
-      |BF| 65.8 (63.8, 68.0)| 44.1 (42.8, 45.5) | 44.8 (43.4, 46.3)|
-      |WA*| 68.4 (66.5, 70.4)| 35.8 (34.5, 37.1) | 40.4 (39.0, 41.8)|
-      |**Neural A*** | **87.7 (86.6, 88.9)**| 40.1 (38.9, 41.3) | 52.0 (50.7, 53.3)|
+      $$
+      R_s(s_t^{jn}, a_t) =
+      \begin{cases}
+      \beta \, (d_t - r^{(b)}) & \text{if } d_t < r^{(b)} \wedge b_t = 1 \\
+      \eta \, (d_t - d_{\rm disc}) & \text{else if } d_t < d_{\rm disc} \\
+      0 & \text{otherwise}
+      \end{cases}
+      $$
 
-      Of course, you can also directly write tables in HTML if needed. For more details, refer to the [UIKit Table documentation](https://getuikit.com/docs/table).
-      <h4>Motion Planning (MP) Dataset</h4>
-      <p>HTML version</p>
+      To simulate how a crowd reacts to path clearing, pedestrians follow a simplified **Emotional Reciprocal Velocity Obstacles (ERVO)** model: everyone inside the half-circle of radius $r^{(b)}$ in front of the robot changes direction when it beeps. The simulator is available at [Python-ERVO](https://github.com/denkiwakame/Python-ERVO).
+
+      <img src="method.png" class="uk-align-center uk-responsive-width" alt="ERVO-based reactive pedestrians" />
+      <span class="uk-text-meta">Fig. 2: ERVO-based reactive pedestrians. A circle and triangles represent the robot and pedestrians (left). When the robot executes an active path clearing action, all pedestrians within the half-circle of radius r<sup>(b)</sup> (right) change their directions.</span>
+  - title: Results
+    text: |
+      In circle-crossing scenarios with N pedestrians, L2B-SARL keeps its success rate around 90% as the crowd grows, while the SARL baseline drops to 70.0% at N = 20, mainly because of timeouts.
+
+      #### Success, collision and timeout rates, and average navigation time
       <div class="uk-overflow-auto">
         <table class="uk-table uk-table-small uk-text-small uk-table-divider">
           <thead>
-            <tr>
-              <th>Method</th>
-              <th>Opt</th>
-              <th>Exp</th>
-              <th>Hmean</th>
-            </tr>
+            <tr><th>N</th><th>Methods</th><th>Success [%] ↑</th><th>Collision [%] ↓</th><th>Timeout [%] ↓</th><th>Time [s] ↓</th></tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                BF
-                <br />
-                WA*
-              </td>
-              <td>
-                65.8 (63.8, 68.0)
-                <br />
-                68.4 (66.5, 70.4)
-              </td>
-              <td>
-                44.1 (42.8, 45.5)
-                <br />
-                35.8 (34.5, 37.1)
-              </td>
-              <td>
-                44.8 (43.4, 46.3)
-                <br />
-                40.4 (39.0, 41.8)
-              </td>
-            </tr>
-            <tr>
-              <td>
-                SAIL
-                <br />
-                SAIL-SL
-                <br />
-                BB-A*
-              </td>
-              <td>
-                5.7 (4.6, 6.8)
-                <br />
-                3.1 (2.3, 3.8)
-                <br />
-                31.2 (28.8, 33.5)
-              </td>
-              <td>
-                58.0 (56.1, 60.0)
-                <br />
-                57.6 (55.7, 59.6)
-                <br />
-                52.0 (50.2, 53.9)
-              </td>
-              <td>
-                7.7 (6.4, 9.0)
-                <br />
-                4.4 (3.5, 5.3)
-                <br />
-                31.1 (29.2, 33.0)
-              </td>
-            </tr>
-            <tr class="uk-active">
-              <td>
-                Neural BF
-                <br />
-                <b>Neural A*</b>
-              </td>
-              <td>
-                75.5 (73.8, 77.1)
-                <br />
-                <b>87.7 (86.6, 88.9)</b>
-              </td>
-              <td>
-                45.9 (44.6, 47.2)
-                <br />
-                40.1 (38.9, 41.3)
-              </td>
-              <td>
-                52.0 (50.7, 53.4)
-                <br />
-                52.0 (50.7, 53.3)
-              </td>
-            </tr>
+            <tr><td rowspan="2">20</td><td>SARL</td><td>70.0</td><td>18.4</td><td>11.6</td><td><b>13.50</b></td></tr>
+            <tr class="uk-active"><td><b>L2B-SARL (ours)</b></td><td><b>90.6</b> <span class="uk-text-success">(+20.6)</span></td><td><b>9.4</b> <span class="uk-text-success">(-9.0)</span></td><td><b>0.0</b> <span class="uk-text-success">(-11.6)</span></td><td>13.85 <span class="uk-text-danger">(+0.35)</span></td></tr>
+            <tr><td rowspan="2">15</td><td>SARL</td><td>77.8</td><td><b>6.4</b></td><td>15.8</td><td>12.43</td></tr>
+            <tr class="uk-active"><td><b>L2B-SARL (ours)</b></td><td><b>88.0</b> <span class="uk-text-success">(+10.2)</span></td><td>11.8 <span class="uk-text-danger">(+5.4)</span></td><td><b>0.2</b> <span class="uk-text-success">(-15.6)</span></td><td><b>11.60</b> <span class="uk-text-success">(-0.83)</span></td></tr>
+            <tr><td rowspan="2">10</td><td>SARL</td><td><b>92.2</b></td><td><b>4.6</b></td><td>3.2</td><td>11.91</td></tr>
+            <tr class="uk-active"><td><b>L2B-SARL (ours)</b></td><td>90.4 <span class="uk-text-danger">(-1.8)</span></td><td>8.6 <span class="uk-text-danger">(+4.0)</span></td><td><b>0.4</b> <span class="uk-text-success">(-2.8)</span></td><td><b>11.31</b> <span class="uk-text-success">(-0.60)</span></td></tr>
+            <tr><td rowspan="2">5</td><td>SARL</td><td>96.6</td><td>3.2</td><td>0.2</td><td><b>10.09</b></td></tr>
+            <tr class="uk-active"><td><b>L2B-SARL (ours)</b></td><td><b>97.8</b> <span class="uk-text-success">(+1.2)</span></td><td><b>2.0</b> <span class="uk-text-success">(-1.2)</span></td><td>0.2 <span class="uk-text-muted">(±0)</span></td><td>10.14 <span class="uk-text-danger">(+0.05)</span></td></tr>
+            <tr><td rowspan="2">avg.</td><td>SARL</td><td>84.1</td><td>8.1</td><td>7.7</td><td>11.98</td></tr>
+            <tr class="uk-active"><td><b>L2B-SARL (ours)</b></td><td><b>91.7</b> <span class="uk-text-success">(+7.6)</span></td><td><b>7.9</b> <span class="uk-text-success">(-0.2)</span></td><td><b>0.2</b> <span class="uk-text-success">(-7.5)</span></td><td><b>11.72</b> <span class="uk-text-success">(-0.26)</span></td></tr>
           </tbody>
         </table>
       </div>
-      <h3>Selected Path Planning Results</h3>
-      <img
-        src="assets/result1.png"
-        class="uk-align-center uk-responsive-width"
-        alt=""
-      />
-      <h3>Path Planning Results on SSD Dataset</h3>
-      <img
-        src="assets/result2.png"
-        class="uk-align-center uk-responsive-width"
-        alt=""
-      />
-  - title: KaTeX examples
-    text: >
-      $\KaTeX$ enables you to write mathematical expressions beautifully within your text (e.g. $\alpha$, $\beta$, $\gamma$ ).
-      $$ax^2 + bx + c = 0$$
-      $$ \int \oint \sum \prod $$
-      $$ \begin{CD} A @>a>> B \\ @VbVV @AAcA \\ C @= D \end{CD} $$
-      [KaTeX supports a wide range of mathematical symbols and equations](https://katex.org/docs/support_table.html), ensuring your technical content is both clear and visually appealing.
-      With markdown for text formatting and KaTeX for mathematical expressions, our template empowers you to communicate complex ideas effectively. Whether you're writing a scientific paper or a technical blog post, harnessing these tools will elevate your content and engage your readers.
+      <span class="uk-text-meta">Values in parentheses are differences from SARL (percentage points; seconds for Time).</span>
+
+      #### Qualitative results
+      L2B-SARL (top) clears its path with a few beeps and goes through the crowd, while SARL (bottom) takes long detours around it.
+
+      <img src="qualitative.png" class="uk-align-center uk-responsive-width" alt="Qualitative results" />
+      <span class="uk-text-meta">Fig. 3: (a)-(d) L2B-SARL and (e)-(h) SARL for N = 5, 10, 15, 20. Gray points are pedestrians and filled orange circles are the robot. Bigger orange circles are path clearing (beep) actions.</span>
+
+      #### Balancing path clearing
+      With too small a penalty $\beta$, the robot beeps too often, confusing the crowd and causing collisions. L2B learns to mix path clearing and collision avoidance.
+
+      <div class="uk-child-width-1-2@m uk-flex-middle" uk-grid>
+        <div>
+          <img src="apc.png" class="uk-align-center uk-responsive-width" alt="Effect of path clearing frequency" />
+          <span class="uk-text-meta">Fig. 4: (a) Too frequent active path clearing (APC) causes traffic confusion. (b) Our approach balances path clearing and collision avoidance.</span>
+        </div>
+        <div>
+          <img src="beta.png" class="uk-align-center uk-responsive-width" alt="Effect of beta" />
+          <span class="uk-text-meta">Fig. 5: (a) Frequency of active path clearing and (b) success rate for each combination of β and the number of pedestrians N.</span>
+        </div>
+      </div>
 projects:
-  - title: 'maru: a miniature-sized wheeled robot for swarm robotics research'
-    journal: "CHI'24"
-    img: https://getuikit.com/docs/images/light.jpg
-    description: |
-      "maru" (= miniature assemblage adaptive robot unit) is a custom-made, miniature-sized, two-wheeled robot designed specifically for tabletop swarm robotics research.
-    url: https://github.com/omron-sinicx/swarm-body
-  - title: 'Language-Guided Pattern Formation for Swarm Robotics with Multi-Agent Reinforcement Learning'
+  - title: 'Multi-Agent Behavior Retrieval: Retrieval-Augmented Policy Training for Cooperative Manipulation by Mobile Robots'
     journal: "IROS'24"
-    img: https://omron-sinicx.github.io/language-guided-pattern-formation/assets/teaser.png
+    img: https://omron-sinicx.github.io/mabr/assets/teaser.png
     description: |
-      "maru" (= miniature assemblage adaptive robot unit) is a custom-made, miniature-sized, two-wheeled robot designed specifically for tabletop swarm robotics research.
-    url: https://github.com/omron-sinicx/swarm-body
-  - title: 'Language-Guided Pattern Formation for Swarm Robotics with Multi-Agent Reinforcement Learning'
-    journal: "IROS'24"
-    img: method.png
-    description: |
-      "maru" (= miniature assemblage adaptive robot unit) is a custom-made, miniature-sized, two-wheeled robot designed specifically for tabletop swarm robotics research.
-    url: https://github.com/omron-sinicx/swarm-body
+      Introduces the Multi-Agent Coordination Skill Database, allowing multiple mobile robots to efficiently use past memories to adapt to new tasks.
+    url: https://omron-sinicx.github.io/mabr/

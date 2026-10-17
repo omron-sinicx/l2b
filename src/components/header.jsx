@@ -26,6 +26,7 @@ class ResourceBtn extends React.Component {
       arxiv: SiArxiv,
       poster: FaRegFilePdf,
       code: FaGithub,
+      simulator: FaGithub,
       video: FaYoutube,
       blog: FaMedium,
       demo: GoogleColab,

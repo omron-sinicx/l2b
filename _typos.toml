@@ -1,6 +1,10 @@
 [files]
 # Agent/tooling scratch space — not project source.
-extend-exclude = [".claude/"]
+extend-exclude = [
+  ".claude/",
+  # Vendored minified three.js bundle (ported from the old L2B page).
+  "public/sim/*.bundle.js",
+]
 
 [default.extend-words]
 
