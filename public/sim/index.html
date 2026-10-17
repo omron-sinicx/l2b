@@ -43,5 +43,47 @@
       modifications by <a href="https://donmccurdy.com/" target="_blank">Don McCurdy</a>. CC0 1.0.
     </div>
     <script src="l2b.bundle.js"></script>
+    <script>
+      // Restyle the path-clearing (beep) effect: the bundle toggles a flat yellow disc
+      // (Renderer.beepCircle) once per second. Recolor it to the page accent, keep it under
+      // the robot every frame, and add ripples spreading out to the beep range (radius 1).
+      (function () {
+        var R = window.Renderer;
+        if (!R || !R.beepCircle) return;
+        var ACCENT = 0xe55927; // $accent-color in src/scss/theme.scss
+        var core = R.beepCircle;
+        function style(mesh, opacity) {
+          mesh.material.color.setHex(ACCENT);
+          mesh.material.transparent = true;
+          mesh.material.depthWrite = false;
+          mesh.material.opacity = opacity;
+        }
+        style(core, 0.3);
+        var ripples = [0, 0.5].map(function (phase) {
+          var m = core.clone();
+          m.material = core.material.clone();
+          style(m, 0);
+          m.userData.phase = phase;
+          R.scene.add(m);
+          return m;
+        });
+        var PERIOD = 1.0; // seconds per ripple
+        var t0 = performance.now();
+        (function tick() {
+          requestAnimationFrame(tick);
+          var robot = R.model.robots[0];
+          var t = (performance.now() - t0) / 1000;
+          [core].concat(ripples).forEach(function (m) {
+            if (robot) m.position.set(robot.scene.position.x, 0.01, robot.scene.position.z);
+          });
+          ripples.forEach(function (m) {
+            var p = (t / PERIOD + m.userData.phase) % 1;
+            m.visible = core.visible;
+            m.scale.set(0.2 + 0.8 * p, 0.2 + 0.8 * p, 1);
+            m.material.opacity = 0.6 * (1 - p);
+          });
+        })();
+      })();
+    </script>
   </body>
 </html>
