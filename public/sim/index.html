@@ -68,11 +68,50 @@
           return m;
         });
         var PERIOD = 1.0; // seconds per ripple
+        var BEEP_RANGE = 1.0; // r^(b): pedestrians within this range react to the beep
+        var FADE = 0.8; // seconds for a highlighted pedestrian to fade back to gray
         var t0 = performance.now();
+        var last = t0;
+        var lastTick = null;
+        var affected = {}; // ped index -> true while the current beep affects it
+        var level = {}; // ped index -> highlight strength in [0, 1]
+
+        // Tint pedestrians hit by a beep so their reaction is visible. The bundle snaps
+        // everyone to the trajectory once per second (R.globalTime); our rAF runs after it,
+        // so on a tick the positions are exactly the data's.
+        function tintPeds(dt) {
+          if (R.globalTime !== lastTick) {
+            lastTick = R.globalTime;
+            affected = {};
+            var robot = R.model.robots[0];
+            if (core.visible && robot) {
+              R.model.peds.forEach(function (ped, i) {
+                if (ped && ped.scene.position.distanceTo(robot.scene.position) < BEEP_RANGE) affected[i] = true;
+              });
+            }
+          }
+          R.model.peds.forEach(function (ped, i) {
+            if (!ped) return;
+            level[i] = affected[i] ? 1 : Math.max(0, (level[i] || 0) - dt / FADE);
+            ped.scene.traverse(function (o) {
+              if (!o.isMesh) return;
+              var ud = o.material.userData;
+              if (!ud.gray) {
+                ud.gray = o.material.color.clone();
+                ud.accent = o.material.color.clone().setHex(ACCENT);
+              }
+              o.material.color.copy(ud.gray).lerp(ud.accent, level[i]);
+            });
+          });
+        }
+
         (function tick() {
           requestAnimationFrame(tick);
+          var now = performance.now();
+          tintPeds((now - last) / 1000);
+          last = now;
           var robot = R.model.robots[0];
-          var t = (performance.now() - t0) / 1000;
+          var t = (now - t0) / 1000;
           [core].concat(ripples).forEach(function (m) {
             if (robot) m.position.set(robot.scene.position.x, 0.01, robot.scene.position.z);
           });
